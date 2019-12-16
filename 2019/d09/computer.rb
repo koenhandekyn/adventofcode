@@ -1,6 +1,6 @@
 require 'csv'
 class Computer
-
+  attr_reader :rom
   def initialize(ram, debug: false)
     @debug = debug
     @rom = ram
@@ -10,7 +10,7 @@ class Computer
   def read
     val = @ram[@pos] || 0
     @pos += 1
-    val 
+    val
   end
 
   def readVal(mode)
@@ -49,7 +49,7 @@ class Computer
     inputQueue = Queue.new
     inputs.each { |i| inputQueue << i }
     outputQueue = Queue.new
-    run(inputQueue, outputQueue) 
+    run(inputQueue, outputQueue)
     Array.new(outputQueue.size) { outputQueue.pop }
   end
 
@@ -66,35 +66,35 @@ class Computer
         writeVal(mode[2], r, a  + b)
       when 2
         a, b, r = [readVal(mode[0]), readVal(mode[1]), read]
-        puts "#{a} * #{b}" if @debug        
+        puts "#{a} * #{b}" if @debug
         writeVal(mode[2], r, a  * b)
       when 3
         r = read
-        puts "read input to #{r}/#{mode[0]}" if @debug        
+        puts "read input to #{r}/#{mode[0]}" if @debug
         writeVal(mode[0], r, inputs.pop.to_i)
       when 4
         a = readVal(mode[0])
-        puts "write output #{a}" if @debug        
+        puts "write output #{a}" if @debug
         outputs << a
       when 5
         a, b = [readVal(mode[0]), readVal(mode[1])]
-        puts "goto #{b} if #{a} > 0" if @debug        
+        puts "goto #{b} if #{a} > 0" if @debug
         @pos = b if a > 0
       when 6
         a, b = [readVal(mode[0]), readVal(mode[1])]
-        puts "goto #{b} if #{a} == 0" if @debug        
+        puts "goto #{b} if #{a} == 0" if @debug
         @pos = b if a == 0
       when 7
         a, b, r = [readVal(mode[0]), readVal(mode[1]), read]
-        puts "write : #{a} < #{b} ? 1 : 0" if @debug        
+        puts "write : #{a} < #{b} ? 1 : 0" if @debug
         writeVal(mode[2], r, a < b ? 1 : 0)
       when 8
         a, b, r = [readVal(mode[0]), readVal(mode[1]), read]
-        puts "write : #{a} == #{b} ? 1 : 0" if @debug        
+        puts "write : #{a} == #{b} ? 1 : 0" if @debug
         writeVal(mode[2], r, a == b ? 1 : 0)
       when 9
         a = readVal(mode[0])
-        puts "relbase += #{a}" if @debug        
+        puts "relbase += #{a}" if @debug
         @relbase += a
       when 99
         break
@@ -109,5 +109,5 @@ class Computer
   def self.load(filename, debug: false)
     code = CSV.read(filename)[0].map(&:to_i)
     Computer.new(code, debug: debug)
-  end  
+  end
 end
