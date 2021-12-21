@@ -24,7 +24,7 @@ DIGITS =
 def mapping_from(inputs)
   mapping = Array.new(7,["a", "b", "c", "d", "e", "f", "g"])
   inputs_by_size = inputs.uniq.map { |a| [a.length, a.split("")]}
-  size = ->(n) { inputs_by_size.select { |a,b| a == n }.map { |a,b| b }}
+  size = ->(n) { inputs_by_size.select { |a,b| a == n }.map { |a,b| b } }
   appears = ->(s, c) { size.(s).flatten.tally.filter { |a,b| b == c }.keys }
   mapping[0] = mapping[0] - size.(2).first & size.(3).first - size.(4).first & appears.(5, 3) & appears.(6, 3)
   mapping[1] = mapping[1] - size.(2).first - size.(3).first & size.(4).first & appears.(5, 1) & appears.(6, 3)

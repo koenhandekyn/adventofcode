@@ -1,7 +1,8 @@
 # filename = "test.txt"
 filename = "input.txt"
 
-@inputs = File.readlines(filename).map { |s| s.strip.split("").map(&:to_i)}
+@inputs = File.readlines(filename)
+              .map { |s| s.strip.split("").map(&:to_i) }
 
 class Range
   def product(range)
