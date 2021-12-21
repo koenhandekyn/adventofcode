@@ -37,5 +37,8 @@ def flow(basin, flow_to)
   end
 end
 
-sizes = low_points.map { |low_point| flow([], low_point).size }
-puts sizes.sort.reverse.take(3).reduce(&:*)
+puts low_points.map { |low_point| flow([], low_point).size }
+               .sort
+               .reverse
+               .take(3)
+               .reduce(&:*)
