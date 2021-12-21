@@ -1,37 +1,18 @@
-commands = File.readlines('input.txt').map(&:split)
+depth = aimed_depth = horizontal = 0
+File.readlines('input.txt')
+    .each do |command|
+      instruction, amount = command.split
+      amount = amount.to_i
+      case instruction
+      when "down"
+        depth += amount
+      when "up"
+        depth -= amount
+      when "forward"
+        horizontal += amount
+        aimed_depth += depth * amount
+      end
+    end
 
-######################## PART 1
-
-OPS = {
-  up: [:d, -1],
-  down: [:d, +1],
-  forward: [:h, +1]
-}
-
-pos = { d: 0, h: 0 }
-commands.each do |command|
-  instruction, amount_s = command
-  p_index, p_factor = OPS[instruction.to_sym]
-  pos[p_index] += p_factor * amount_s.to_i
-end
-
-puts pos[:d]*pos[:h]
-
-######################## PART 2
-
-depth = horizontal = aim = 0
-commands.each do |command|
-  instruction, amount_s = command
-  amount = amount_s.to_i
-  case instruction
-  when "down"
-    aim += amount
-  when "up"
-    aim -= amount
-  when "forward"
-    horizontal += amount
-    depth += aim * amount
-  end
-end
-
-puts depth*horizontal
+puts horizontal * depth
+puts horizontal * aimed_depth
