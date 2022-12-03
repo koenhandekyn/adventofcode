@@ -1,4 +1,4 @@
-# filename = "test.txt"
+ q# filename = "test.txt"
 filename = "input.txt"
 
 input = File.readlines(filename)

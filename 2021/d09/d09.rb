@@ -1,3 +1,11 @@
+r = [[3, 5, 18], [1, 7, 22], [6, 9, 33], [2, 2, 8], [7, 1, 10]]
+
+r.each_with_index do |(a,b,c), i|
+  puts b*3+a, c
+end
+
+exit
+
 # filename = "test.txt"
 filename = "input.txt"
 
